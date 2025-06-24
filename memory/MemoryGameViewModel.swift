@@ -1,8 +1,14 @@
-//
-//  MemoryGameViewModel.swift
-//  memory
-//
-//  Created by Mail I on 2025/06/24.
-//
-
 import Foundation
+
+class MemoryGameViewModel : ObservableObject {
+    @Published var cards : [Card] = []
+
+    init(){
+        startGame()
+    }
+
+    func startGame(){
+        print("ゲームを開始しました")
+    }
+
+}
