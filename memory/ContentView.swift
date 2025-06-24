@@ -22,8 +22,9 @@ struct ContentView: View {
                                 .scaledToFit()
                                 .padding()
                         } else{
-                            Image("あすか")
-                            
+                            Image("top")
+                                .resizable()
+                                .scaledToFit()
                         }
                     }
                     .onTapGesture {

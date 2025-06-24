@@ -4,7 +4,7 @@ import SwiftUI
 struct memoryApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StartView()
         }
     }
 }
