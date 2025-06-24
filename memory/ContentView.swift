@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var viewModel = MemoryGameViewModel()
+    @StateObject private var viewModel = MemoryGameViewModel()
     let columns = [
         GridItem(.adaptive(minimum: 80))
     ]
@@ -11,17 +11,27 @@ struct ContentView: View {
                 ForEach(viewModel.cards){ card in
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.blue)
+                            .fill(card.isFace ? Color.white : Color.blue)
                             .frame(height:100)
+                            .shadow(radius: 1)
 
-                        Image(card.fileName)
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
+                        if card.isMatch || card.isFace {
+                            //マッチしてる　あるいは　表
+                            Image(card.fileName)
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                        } else{
+                            Image("あすか")
+                            
+                        }
                     }
                     .onTapGesture {
-                            print("\(card.fileName)がタップされました")
+                        Task{
+                            await viewModel.choose(card:card)
+                        }
                     }
+                    .animation(.easeInOut, value: card.isFace)
                 }
             }
             .padding(8)
