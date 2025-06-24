@@ -8,7 +8,7 @@ class MemoryGameViewModel : ObservableObject {
     }
 
     func startGame(){
-        let imageNames : [String] = ["suiko","umako","jitou","sakau","taisi","koteko","susyun","tenji","tenmu"]
+        let imageNames : [String] = ["suiko","umako","jitou","sakau","taisi","koteko","susyun","tenji","tenmu","youdai","zensinnni"]
         print("ゲームを開始しました")
         for imageName in imageNames{
             cards.append(Card(fileName:imageName))
