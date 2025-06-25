@@ -1,15 +1,16 @@
-//
-//  ResultView.swift
-//  memory
-//
-//  Created by Mail I on 2025/06/25.
-//
-
 import SwiftUI
 
 struct ResultView: View {
+    @EnvironmentObject private var viewModel : MemoryGameViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text("結果画面")
+            Button{
+                viewModel.reset()
+            } label : {
+                Text("リセット")
+            }
+        }
     }
 }
 

@@ -17,10 +17,10 @@ struct ContentView: View {
                 LazyVGrid(columns: columns, spacing: 8) {
                     ForEach(viewModel.cards){ card in
                         ZStack{
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(card.isFace ? Color.white : Color.blue)
-                                .frame(height:100)
-                                .shadow(radius: 1)
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .fill(card.isFace ? Color.white : Color.blue)
+//                                .frame(height:100)
+//                                .shadow(radius: 1)
 
                             if card.isMatch || card.isFace {
                                 //マッチしてる　あるいは　表

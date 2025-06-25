@@ -4,10 +4,17 @@ struct StartView: View {
     @EnvironmentObject private var viewModel : MemoryGameViewModel
     var body: some View {
         ZStack{
-            if viewModel.isGameStart{
+
+            if viewModel.isGameFinished{
+                ResultView()
+            }
+
+            if viewModel.isGameStart && !viewModel.isGameFinished {
                 ContentView()
                     .transition(.opacity)
-            }else{
+            }
+
+            if !viewModel.isGameFinished &&  !viewModel.isGameStart {
                 VStack{
                     Button {
                         withAnimation{
@@ -38,7 +45,10 @@ struct StartView: View {
                         .padding()
                     }
                 }
+                .background(Image("back"))
             }
+
+
         }
         
         
