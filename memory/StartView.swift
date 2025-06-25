@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct StartView: View {
-    @State private var isGameStart : Bool = false
+    @EnvironmentObject private var viewModel : MemoryGameViewModel
     var body: some View {
         ZStack{
-            if isGameStart{
+            if viewModel.isGameStart{
                 ContentView()
                     .transition(.opacity)
             }else{
                 VStack{
                     Button {
                         withAnimation{
-                            isGameStart = true
+                            viewModel.isGameStart = true
                         }
                     } label: {
                         ZStack{
@@ -40,12 +40,9 @@ struct StartView: View {
                 }
             }
         }
-
-
-
+        
+        
+        
     }
 }
 
-#Preview {
-    StartView()
-}

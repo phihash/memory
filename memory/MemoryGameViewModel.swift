@@ -1,13 +1,11 @@
 import Foundation
 
-//1.guard構文
-//2. mainactor
-//3,StateObject
-
 @MainActor
 class MemoryGameViewModel : ObservableObject {
     @Published var cards : [Card] = []
-    
+    @Published var isJudge : Bool = false
+    @Published var isGameStart : Bool = false
+
     private var selectedIndex : Int? = nil
     
     init(){
@@ -16,7 +14,7 @@ class MemoryGameViewModel : ObservableObject {
     
     func startGame(){
         selectedIndex = nil
-        let imageNames : [String] = ["suiko","umako","jitou","sakau","taisi","koteko","susyun","tenji","tenmu","youdai","zensinni"]
+        let imageNames : [String] = ["suiko","umako","jitou","sakau","taisi","koteko","susyun","tenji","tenmu","youdai","zensinni","imoko","kamatari"]
         var copyCards : [Card] = []
         print("ゲームを開始しました")
         for imageName in imageNames{
@@ -29,12 +27,13 @@ class MemoryGameViewModel : ObservableObject {
     
     func choose (card:Card) async {
         //選択されたカードから、indexを探す、表あるいはマッチ済みは何もしない、indexが見つからないときは何もしない(そんなことはありえない)
-        guard let tapIndex = cards.firstIndex(where:{$0.id == card.id}), !cards[tapIndex].isFace , !cards[tapIndex].isMatch else {
+        guard let tapIndex = cards.firstIndex(where:{$0.id == card.id}), !cards[tapIndex].isFace , !cards[tapIndex].isMatch , !isJudge else {
             return
         }
 
         if let matchIndex = selectedIndex {
             //2回目のタップ
+            isJudge = true
             cards[tapIndex].isFace = true
 
             if cards[matchIndex].fileName == cards[tapIndex].fileName {
@@ -47,6 +46,7 @@ class MemoryGameViewModel : ObservableObject {
             }
 
             selectedIndex = nil
+            isJudge = false
         } else {
             //1回目のタップ
             for i in cards.indices{
