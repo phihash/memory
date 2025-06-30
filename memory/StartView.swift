@@ -3,56 +3,37 @@ import SwiftUI
 struct StartView: View {
     @EnvironmentObject private var viewModel : MemoryGameViewModel
     var body: some View {
-        ZStack{
-
-            if viewModel.isGameFinished{
-                ResultView()
-            }
-
-            if viewModel.isGameStart && !viewModel.isGameFinished {
-                ContentView()
-                    .transition(.opacity)
-            }
-
-            if !viewModel.isGameFinished &&  !viewModel.isGameStart {
-                VStack{
-                    Button {
-                        withAnimation{
-                            viewModel.isGameStart = true
-                        }
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.red)
-                                .frame(height:60)
-                            Text("ゲームスタート")
-                                .fontWeight(.bold)
-                                .font(.title2)
-                        }
-                        .padding()
-                    }
-                    Button {
-                        print("図鑑ボタンタップ")
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.red)
-                                .frame(height:60)
-                            Text("図鑑へ")
-                                .fontWeight(.bold)
-                                .font(.title2)
-                        }
-                        .padding()
-                    }
+        VStack{
+            Button {
+                withAnimation{
+                    viewModel.gameState = .playing
                 }
-                .background(Image("back"))
+            } label: {
+                ZStack{
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.red)
+                        .frame(height:60)
+                    Text("ゲームスタート")
+                        .fontWeight(.bold)
+                        .font(.title2)
+                }
+                .padding()
             }
-
-
+            Button {
+                print("図鑑ボタンタップ")
+            } label: {
+                ZStack{
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.red)
+                        .frame(height:60)
+                    Text("図鑑へ")
+                        .fontWeight(.bold)
+                        .font(.title2)
+                }
+                .padding()
+            }
         }
-        
-        
-        
+        .background(Image("back"))
     }
 }
 

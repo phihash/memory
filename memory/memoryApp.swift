@@ -5,7 +5,7 @@ struct memoryApp: App {
     @StateObject private var viewModel = MemoryGameViewModel()
     var body: some Scene {
         WindowGroup {
-            StartView()
+            HomeView()
                 .environmentObject(viewModel)
         }
     }

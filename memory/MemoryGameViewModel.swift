@@ -1,10 +1,16 @@
 import Foundation
 
+enum GameState {
+    case home
+    case playing
+    case result
+}
+
 @MainActor
 class MemoryGameViewModel : ObservableObject {
     @Published var cards : [Card] = []
     @Published var isJudge : Bool = false
-    @Published var isGameStart : Bool = false
+    @Published var gameState : GameState = .home
 
     private var selectedCardIndex : Int? = nil
     
@@ -14,6 +20,12 @@ class MemoryGameViewModel : ObservableObject {
 
     var isGameFinished : Bool {
         cards.allSatisfy {$0.isMatch}
+    }
+
+    func checkIsGameFinished (){
+        if isGameFinished {
+            gameState = .result
+        }
     }
 
     func startGame(){
@@ -35,7 +47,6 @@ class MemoryGameViewModel : ObservableObject {
 
     func reset(){
         selectedCardIndex = nil
-        isGameStart = false
         cards.removeAll()
     }
 
@@ -61,6 +72,7 @@ class MemoryGameViewModel : ObservableObject {
 
             selectedCardIndex = nil
             isJudge = false
+            checkIsGameFinished()
         } else {
             //1回目のタップ
             for i in cards.indices{
